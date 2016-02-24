@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="reminder">
+<head>
+	<meta charset="UTF-8">
+	<title>Icloud Reminder</title>
+	<script src="angular.js"></script>
+	<script src="reminder.js"></script>
+	<link rel="stylesheet" href="index.css">
+</head>
+<body ng-controller="rdCtrl" ng-dblclick="delall()">
+<div class="left" ng-dblclick="delall()">
+	<div class="title">
+	    <div></div>
+		<span ng-click="addlists()"  ng-dblclick="clear($event)"></span>
+	</div>
+	<div class="plan">
+		<div class="plan-icon"></div>
+		<div class="plan-label">已计划</div>
+	</div>
+	<div class="plan-bottom"></div>
+	<ul>
+		<li ng-repeat="(key, value) in list track by $index" ng-click="showitems($index)" ng-class="{active:listindex==$index}" >
+		<span class="{{value.color}}"></span>
+		<input type="text" ng-model="value.name" ng-blur="save()" class="{{value.color}}">
+		<div class="gongxiang"></div>
+		</li>
+	</ul>
+</div>
+<div class="right" ng-class="list[listindex].color">
+        <div class="sousuo">
+        <div class="sousuo-iconbox">
+        <div class="sousuo-icon"></div>
+        </div>
+        <input type="text" value="搜索所有提醒">
+        <label>宋玲玲</label>
+        <div class="chevron"></div>
+        <div class="xian"></div>
+        <div class="help">
+        	<div class="help-icon"></div>
+        </div>
+        </div>
+        
+        <div class="showbox">
+        <!-- <input type="text" ng-model="list[listindex].name"> -->
+        
+        <div class="show-titlebox">
+		<div class="show-title">{{list[listindex].name}}</div>
+		<label class="xuanx">选项</label>
+		</div>
+		<div class="nfall">
+		<div class="finishbox">
+			<div class="finish">总数:{{list[listindex].items.length}}项</div>
+			<ul class="finish-ul">
+				<li ng-repeat="(key, value) in list[listindex].items track by $index" ng-show="value.isDone">
+				    <span class="item-icon2" ng-class="list[listindex].color"></span>
+				    <div class="new-item-input">
+					<input type="text" ng-model="value.title" ng-blur="save()">
+					</div>
+					<!-- <span>{{value.isDone}}</span> -->
+					<button ng-click="delitem($index)" ng-class="list[listindex].color">删除项目</button>
+				</li>
+			
+			</ul>
+			</div>	
+		  
+	     <div class="newitembox">
+	              <ul class="new-item-ul">
+	    				<li ng-repeat="(key, value) in list[listindex].items track by $index" ng-hide="value.isDone">
+	    				<span class="item-icon1" ng-class="list[listindex].color" ng-click="value.isDone=true;save()"></span>
+	    				<div class="new-item-input">
+	                     <input type="text" ng-model="value.title" ng-blur="save()">
+	                     </div>
+	     				<!-- <span ng-click="value.isDone=true;save()">{{value.isDone}}</span> -->
+	     				<button ng-click="delitem($index)" ng-class="list[listindex].color">删除项目</button>
+	     			</li>
+	     				     		</ul>
+	     <div class="new-item" ng-click="additem()">新项目...</div>
+	     </div>
+	    </div>
+   </div>
+ </div>	
+
+ <div class="xuanxiang" style="display:none">
+ 	<div class="xuanxiangbox">
+ 		<div class="xuanxiang-title"><input class="xuanxiang-input" type="text" ng-class="list[listindex].color" ng-model="list[listindex].name"></div>
+ 	</div>
+ 	<div class="listcolor">列表颜色</div>
+ 	<div class="list-color">
+ 	<span ng-repeat="value in colors" class="yuandian" ng-class="value" ng-click="list[listindex].color = value"></span>
+ 	</div>
+ 	<div class="dqxw">
+ 		<span ng-click="dellist()" class="shanchu">删除</span>
+ 		<span class="quxiao">取消</span>
+ 		<span class="xian1"></span>
+ 		<span class="wancheng">完成</span>
+
+ 	</div>
+ </div>
+ <div class="jiantoubox" style="display:none"><div class="jiantou"></div></div>
+</body>
+</html>
