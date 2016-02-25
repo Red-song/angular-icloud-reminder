@@ -1,6 +1,27 @@
 var reminder=angular.module('reminder',[]);
-reminder.controller('rdCtrl', ['$scope', function($scope){
-     
+    reminder.filter('search',[function(){
+
+        return function(data,key){
+          var title=function(items){
+            for(var i=0;i<items.length;i++){
+              if(items[i].title.indexOf(key)!=-1){
+                return true;
+              }
+            }
+            return false;
+          }
+    
+           var r=[];
+          for(var i=0;i<data.length;i++){
+            if(data[i].name.indexOf(key)!=-1||title(data[i].items)){
+              r.push(data[i])        
+            }
+          }
+          return r;
+       }
+
+     }])
+    reminder.controller('rdCtrl', ['$scope', function($scope){
     $scope.list=localStorage.data?JSON.parse(localStorage.data):[];
         $scope.listindex=0;
         $scope.colors=['purple','green','red','yellow','brown','pink','orange']
@@ -58,6 +79,16 @@ reminder.controller('rdCtrl', ['$scope', function($scope){
       }
       $scope.save=function(){
       	localStorage.data=JSON.stringify($scope.list);
+      }
+      $scope.countdone=function(){
+        var lis=$scope.list[$scope.listindex].items;
+        var r=0;
+        for(var i=0;i<lis.length;i++){
+          if(lis[i].isDone){
+            r+=1;
+          }
+        }
+        return r;
       }
 }])
 

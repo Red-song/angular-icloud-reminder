@@ -31,7 +31,7 @@
         <div class="sousuo-iconbox">
         <div class="sousuo-icon"></div>
         </div>
-        <input type="text" value="搜索所有提醒">
+        <input type="text" value="搜索所有提醒" ng-model="key">
         <label>宋玲玲</label>
         <div class="chevron"></div>
         <div class="xian"></div>
@@ -40,7 +40,7 @@
         </div>
         </div>
         
-        <div class="showbox">
+        <div class="showbox" ng-hide="key">
         <!-- <input type="text" ng-model="list[listindex].name"> -->
         
         <div class="show-titlebox">
@@ -49,7 +49,7 @@
 		</div>
 		<div class="nfall">
 		<div class="finishbox">
-			<div class="finish">总数:{{list[listindex].items.length}}项</div>
+			<div class="finish">已完成:{{countdone()}}项</div>
 			<ul class="finish-ul">
 				<li ng-repeat="(key, value) in list[listindex].items track by $index" ng-show="value.isDone">
 				    <span class="item-icon2" ng-class="list[listindex].color"></span>
@@ -78,6 +78,15 @@
 	     </div>
 	    </div>
    </div>
+
+   <div ng-show="key">
+   <div class="sousuo-show"  ng-class="list[listindex].color">这是{{key}}的搜索结果</div>
+       <dl ng-repeat="value in list|search:key">
+       	  <dt>{{value.name}}</dt>
+       	  <dd ng-repeat="r in value.items">{{r.title}}</dd>
+       </dl>
+   </div>
+
  </div>	
 
  <div class="xuanxiang" style="display:none">

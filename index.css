@@ -249,7 +249,7 @@ div.right{
 
 .xian1{
 	right:90px;
-	top:3;
+	top:3px;
 }
 .showbox{
 	position:absolute;
@@ -465,9 +465,30 @@ div.right{
 	color:blue;
 }
 
+/**/
+.sousuo-show{
+	width:100%;
+	line-height: 70px;
+	font-size:40px;
+	margin-left: 50px;
+	background: none;
+	border:none;
+}
+dl{
+	width:80%;
+	margin:10px 0 0 30px;
+}
 
-
-
+dt{
+	font-size:26px;
+	margin-left: 50px;
+    line-height:40px;
+}
+dd{
+    font-size:19px;
+	margin-left: 80px;
+	line-height:40px;
+}
 
 
 
